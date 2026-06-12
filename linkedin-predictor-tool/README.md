@@ -1,39 +1,52 @@
-# Programming II: Data Infrastructure
+# LinkedIn User Prediction Tool
+Interactive Streamlit application that predicts whether an individual is a LinkedIn user based on demographic characteristics. Demonstrates end-to-end machine learning workflow: data cleaning, logistic regression modeling, model evaluation, and interactive prediction interface.
 
-Coursework portfolio from Georgetown University's MSBA Programming II 
-course, focused on data infrastructure, manipulation, and analysis 
-in Python.
+# Features
+Prediction Tab
 
-## Overview
+- Input demographic characteristics (income, education, parental status, marital status, gender, age)
+- Get binary prediction (LinkedIn user / non-user) with probability score
+- Explore how individual factors influence prediction likelihood
 
-This repository contains assignments and projects from OPAN 6607: 
-Programming II — Data Infrastructure at Georgetown's McDonough School 
-of Business. Topics covered include data cleaning, transformation, 
-and analysis using pandas and numpy; working with structured and 
-unstructured data; SQL-Python integration; and applied machine 
-learning workflows.
+# Data Visualizations Tab
 
-## Technical Stack
+- Density plots comparing feature distributions across LinkedIn users vs. non-users
+- Visual exploration of predictor relationships to target variable
+- Helps identify key demographic patterns in the data
 
-- Python 3.x
-- pandas, numpy for data manipulation
-- scikit-learn for machine learning
-- matplotlib, seaborn for visualization
-- Jupyter Notebook for analysis
+# Model Performance Tab
 
-## Repository Structure
+- Confusion matrix showing prediction accuracy across classes
+- Precision, recall, and F1 score metrics
+- ROC curve and AUC score for overall model discrimination
 
-- `assignments/` — weekly coursework assignments
-- `final-project/` — capstone project for the course
-- `data/` — datasets used (sourced from public repositories)
+# Technical Stack
 
-## Context
+- Framework: Streamlit (interactive web app)
+- ML: scikit-learn (logistic regression, model evaluation)
+- Data: pandas, numpy
+- Visualization: matplotlib, seaborn
 
-This is coursework from Georgetown's MSBA program. The repository 
-demonstrates progression from basic Python data manipulation to 
-applied analytical techniques over the course of the semester.
+# Model Details
+- Target Variable: LinkedIn usage (binary: user / non-user)
 
-## Author
+# Predictors:
 
-Matthew Drew | Georgetown McDonough MSBA candidate (Dec 2026) | 
-[LinkedIn](https://linkedin.com/in/mattdrew01)
+- Income (9 ordinal levels)
+- Education (8 ordinal levels)
+- Parental status (binary)
+- Marital status (binary)
+- Gender (binary)
+- Age (numeric, 18-98)
+
+# Performance:
+
+Precision: 56.4% | Recall: 75% | F1: 0.644
+
+Balanced class weights to handle imbalanced training data
+
+# How to Run
+Visit: [LinkedIn Predictor Tool](https://linkedin-prediction-md.streamlit.app/)
+
+# About
+Built as an applied machine learning project demonstrating practical predictive analytics: from data preparation through model deployment and interactive user interface. Shows ability to translate technical modeling work into an accessible tool for end users.
