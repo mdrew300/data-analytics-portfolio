@@ -208,7 +208,7 @@ new_data['sm_li'] = model.predict(new_data)
 """# App title"""
 st.title("LinkedIn User Prediction Tool")
 
-"""# Tabs"""
+# Tabs
 tab1, tab2, tab3 = st.tabs(["Predict", "Sample Data Visualizations", "Model Performance Metrics"])
 
 st.divider()
