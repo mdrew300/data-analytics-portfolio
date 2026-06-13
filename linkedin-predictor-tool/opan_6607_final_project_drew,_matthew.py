@@ -17,6 +17,7 @@ Original file is located at
 
 import pandas as pd
 import numpy as np
+from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import seaborn as sns
@@ -35,10 +36,13 @@ import streamlit as st
 
 """## 1. Read in the data
 ---
+
+
+# Call the dataframe "s" 
 """
 
-# Call the dataframe "s"
-s = pd.read_csv("social_media_usage.csv")    # Full pathway removed for deployment to Streamlit
+DATA_DIR = Path(__file__).parents
+s = pd.read_csv(DATA_DIR /"social_media_usage.csv")    # Full pathway removed for deployment to Streamlit
 
 
 # check the dimensions of the dataframe
@@ -92,7 +96,7 @@ ss.dropna(inplace=True)
 ---
 """
 
-# Perform exploratory analysis to examine how the features are related to the target.
+"""# Perform exploratory analysis to examine how the features are related to the target."""
 
 ss.dtypes
 
@@ -111,7 +115,7 @@ ss['target_label'] = ss['sm_li'].map({0: "Not a LinkedIn User", 1: "LinkedIn Use
 ---
 """
 
-# Split the data into training and test sets. Hold out 20% of the data for testing.
+"""# Split the data into training and test sets. Hold out 20% of the data for testing."""
 train_data, test_data = train_test_split(
     ss,
     test_size=0.20,
@@ -191,7 +195,7 @@ print(classification_report(test_data[y], y_pred))
 ---
 """
 
-# How does the probability change if another person is 82 years old, but otherwise the same?
+"""# How does the probability change if another person is 82 years old, but otherwise the same?"""
 new_data = pd.DataFrame({
     "income": [8, 8],            # high income (e.g. income=8)
     "education": [6, 6],         # high level of education (e.g. 7)
@@ -210,9 +214,9 @@ new_data['sm_li'] = model.predict(new_data)
 
 new_data
 
-# The probability of a  a high income (8), high education (6), non-parent, married female who is 42 years being a LinkedIn user is 0.655 compared with someone who is 82 years old (all other factors equal) is 0.392. This shows that age alone can nearly double the probability of an individual being a LinkedIn user.
+"""# The probability of a  a high income (8), high education (6), non-parent, married female who is 42 years being a LinkedIn user is 0.655 compared with someone who is 82 years old (all other factors equal) is 0.392. This shows that age alone can nearly double the probability of an individual being a LinkedIn user.
 
-"""## Part 2: Develop a Streamlit app using the model
+## Part 2: Develop a Streamlit app using the model
 ---
 ---
 
@@ -220,10 +224,10 @@ new_data
 ---
 """
 
-# App title
+"""# App title"""
 st.title("LinkedIn User Prediction Tool")
 
-# Tabs
+"""# Tabs"""
 tab1, tab2, tab3 = st.tabs(["Predict", "Sample Data Visualizations", "Model Performance Metrics"])
 
 st.divider()
@@ -306,7 +310,7 @@ with tab1:
     pred = model.predict(input_data)[0]
     prob = model.predict_proba(input_data)[0][1]   # probability of being a LinkedIn user
 
-    # ---- Display results ----
+    """# ---- Display results ----"""
     with col2:
 
         st.header("Prediction")
@@ -324,7 +328,8 @@ with tab2:
         "Density plots of key predictors, split by LinkedIn usage status."
     )
 
-    # Loop over each predictor in x and create a density plot
+    """# Loop over each predictor in x and create a density plot"""
+    
     for col in x:
         # Create a figure for Streamlit
         fig, ax = plt.subplots()
