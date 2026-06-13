@@ -35,7 +35,7 @@ from sklearn.metrics import (
 import streamlit as st
 
 ## 1. Read in the data
----
+#---
 
 
 # Call the dataframe "s" 
@@ -49,7 +49,7 @@ s = pd.read_csv(DATA_DIR /"social_media_usage.csv")    # Full pathway removed fo
 s.shape
 
 ## 2. Define a function called clean_sm
----
+#---
 
 
 def clean_sm(x):             # Define a function called clean_sm that takes one input, x,
@@ -59,7 +59,7 @@ def clean_sm(x):             # Define a function called clean_sm that takes one 
     return x                 # Return x.
 
 ### Test function
----
+#---
 
 
 df = pd.DataFrame(           #Create a toy dataframe with three rows and two columns
@@ -69,7 +69,7 @@ df = pd.DataFrame(           #Create a toy dataframe with three rows and two col
 clean_sm(df)                 # and test your function to make sure it works as expected
 
 ## 3. Create a new dataframe called "ss"
----
+#---
 
 
 # Create a new dataframe called "ss"
@@ -93,7 +93,7 @@ ss = pd.DataFrame({'sm_li': clean_sm(s['web1h']), #target column called sm_li wh
 ss.dropna(inplace=True)
 
 ### Exploratory analysis
----
+#---
 
 
 # Perform exploratory analysis to examine how the features are related to the target.
@@ -103,7 +103,7 @@ ss.dtypes
 ss.describe()
 
 ## 4 Create a target vector (y) and feature set (X)
----
+#---
 
 y = 'sm_li'
 x = ['income', 'education', 'parent', 'married', 'female', 'age']
@@ -111,7 +111,7 @@ x = ['income', 'education', 'parent', 'married', 'female', 'age']
 ss['target_label'] = ss['sm_li'].map({0: "Not a LinkedIn User", 1: "LinkedIn User"})
 
 ## 5 Split the data into training and test sets
----
+#---
 
 # Split the data into training and test sets. Hold out 20% of the data for testing.
 train_data, test_data = train_test_split(
@@ -121,7 +121,7 @@ train_data, test_data = train_test_split(
     )
 
 ### Explain what each new object contains and how it is used in machine learning
----
+#---
 #After splitting the dataframe 'ss', the dataframe 'test_data' contains a subset of 20% of the data from ss that will be utilized to compare the predictions from the model and determine how well the model performs. The dataframe 'train_data' contains the remaining 80% of the data from ss that will be used for training the model, meaning that the variables will be observed and a mathematical relationship developed. More precisely,because sm_li was assigned to y that will be the value we are predicting for (whether an individual is a LinkedIn user). The rest of the variables, assigned to x, will be used as the variables to determine the probability that an individual is a LinkedIn user.
 
 
@@ -138,7 +138,7 @@ for col in ss[x].columns:
   plt.show()
 
 ## 6 Instantiate a logistic regression model
----
+#---
 
 
 z = LogisticRegression(class_weight="balanced", random_state=210)
@@ -146,13 +146,13 @@ z = LogisticRegression(class_weight="balanced", random_state=210)
 model = z.fit(train_data[x], train_data[y])
 
 ## 7 Evaluate the model using the testing data
----
+#---
 
 
 y_pred = model.predict(test_data[x])
 
 ## 8 Create the confusion matrix as a dataframe
----
+#---
 
 
 cm = pd.DataFrame(confusion_matrix(test_data[y], y_pred),
@@ -162,11 +162,11 @@ cm = pd.DataFrame(confusion_matrix(test_data[y], y_pred),
 cm
 
 ### Interpret the confusion matrix and explain what each number means.
----
+#---
 #The confusion matrix displays the performance of the logistics regression model by calculating the number of positive and negative observations (LinkedIn users or non-user) and the number of predicted positive and negative observations. The top left intersection (Predicted negative and Actual negative) shows that the model correctly predicted **113** individuals as not being LinkedIn users, or a true negative. The top right intersection (Predicted positive and Actual negative) shows that the model incorrectly predicted **51** individuals as being LinkedIn users when they were not, or a false positive. The bottom left intersection (Predicted negative and Actual positive) shows that the model incorrectly predicted **22** individuals as not being LinkedIn users when they actually were, or a false negative.The bottom right intersection (Predicted positive and Actual positive) shows that the model correctly predicted **66** individuals as being LinkedIn users, or a true positive.
 
 ## 9 Precision, Recall, and F-1 Score
----
+#---
 
 precision = round(float(cm.at["Actual positive", "Predicted positive"] / cm["Predicted positive"].values.sum()),4)
 recall = round(float(cm.at["Actual positive", "Predicted positive"] / cm.loc["Actual positive"].values.sum()),4)
@@ -179,17 +179,17 @@ comp = pd.DataFrame([precision, recall, f1],
 comp
 
 ### Discuss each metric and give an actual example of when it might be the preferred metric of evaluation.
----
+#---
 #The precision of the model states that **56.4%** of the predicted LinkedIn users are actually LinkedIn users; the recall states that the model accurately predicts **75%** of LinkedIn users; the F-1 Score provides a metric that evaluates both and is especially useful when classes are imbalanced in the data (Geeks for Geeks, 2025). Precision is more important when the risk of when the risk of a false positive is greater than the risk of a false negative, and recall is more important in the inverse scenario.
 
 ### After calculating the metrics by hand, create a classification_report using sklearn and check to ensure your metrics match those of the classification_report.
----
+#---
 
 
 print(classification_report(test_data[y], y_pred))
 
 ## 10 Use the model to make predictions
----
+#---
 
 
 # How does the probability change if another person is 82 years old, but otherwise the same?
@@ -214,11 +214,11 @@ new_data
 # The probability of a  a high income (8), high education (6), non-parent, married female who is 42 years being a LinkedIn user is 0.655 compared with someone who is 82 years old (all other factors equal) is 0.392. This shows that age alone can nearly double the probability of an individual being a LinkedIn user.
 
 ## Part 2: Develop a Streamlit app using the model
----
----
+#---
+#---
 
 ### Page Design
----
+#---
 """
 
 """# App title"""
@@ -378,7 +378,7 @@ with tab3:
     plt.close(fig2)
 
 ## Citations
----
+#---
 #“F1 Score in Machine Learning.” GeeksforGeeks, July 23, 2025. https://www.geeksforgeeks.org/machine-learning/f1-score-in-machine-learning/.
 
 #“Precision and Recall in Machine Learning.” GeeksforGeeks, August 2, 2025. https://www.geeksforgeeks.org/machine-learning/precision-and-recall-in-machine-learning/.
