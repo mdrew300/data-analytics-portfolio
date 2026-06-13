@@ -45,9 +45,6 @@ DATA_DIR = Path(__file__).parent
 s = pd.read_csv(DATA_DIR /"social_media_usage.csv")    # Full pathway removed for deployment to Streamlit
 
 
-# check the dimensions of the dataframe
-s.shape
-
 ## 2. Define a function called clean_sm
 #---
 
@@ -65,8 +62,6 @@ def clean_sm(x):             # Define a function called clean_sm that takes one 
 df = pd.DataFrame(           #Create a toy dataframe with three rows and two columns
      {'col 1': [1, 2, 3],
      'col 2': [6, 1, 5]})
-
-clean_sm(df)                 # and test your function to make sure it works as expected
 
 ## 3. Create a new dataframe called "ss"
 #---
@@ -98,9 +93,9 @@ ss.dropna(inplace=True)
 
 # Perform exploratory analysis to examine how the features are related to the target.
 
-ss.dtypes
+#ss.dtypes
 
-ss.describe()
+#ss.describe()
 
 ## 4 Create a target vector (y) and feature set (X)
 #---
@@ -125,7 +120,7 @@ train_data, test_data = train_test_split(
 #After splitting the dataframe 'ss', the dataframe 'test_data' contains a subset of 20% of the data from ss that will be utilized to compare the predictions from the model and determine how well the model performs. The dataframe 'train_data' contains the remaining 80% of the data from ss that will be used for training the model, meaning that the variables will be observed and a mathematical relationship developed. More precisely,because sm_li was assigned to y that will be the value we are predicting for (whether an individual is a LinkedIn user). The rest of the variables, assigned to x, will be used as the variables to determine the probability that an individual is a LinkedIn user.
 
 
-train_data.dtypes
+#train_data.dtypes
 
 for col in ss[x].columns:
   sns.kdeplot(
@@ -159,7 +154,6 @@ cm = pd.DataFrame(confusion_matrix(test_data[y], y_pred),
             columns=["Predicted negative", "Predicted positive"],
             index=["Actual negative","Actual positive"])
 
-cm
 
 ### Interpret the confusion matrix and explain what each number means.
 #---
@@ -176,17 +170,9 @@ comp = pd.DataFrame([precision, recall, f1],
                     columns=["Values"],
                     index=["Precision:", "Recall:", "F-1 Score:"])
 
-comp
-
 ### Discuss each metric and give an actual example of when it might be the preferred metric of evaluation.
 #---
 #The precision of the model states that **56.4%** of the predicted LinkedIn users are actually LinkedIn users; the recall states that the model accurately predicts **75%** of LinkedIn users; the F-1 Score provides a metric that evaluates both and is especially useful when classes are imbalanced in the data (Geeks for Geeks, 2025). Precision is more important when the risk of when the risk of a false positive is greater than the risk of a false negative, and recall is more important in the inverse scenario.
-
-### After calculating the metrics by hand, create a classification_report using sklearn and check to ensure your metrics match those of the classification_report.
-#---
-
-
-print(classification_report(test_data[y], y_pred))
 
 ## 10 Use the model to make predictions
 #---
@@ -209,8 +195,6 @@ for age, p in zip(new_data['age'], probs):
 
 new_data['sm_li'] = model.predict(new_data)
 
-new_data
-
 # The probability of a  a high income (8), high education (6), non-parent, married female who is 42 years being a LinkedIn user is 0.655 compared with someone who is 82 years old (all other factors equal) is 0.392. This shows that age alone can nearly double the probability of an individual being a LinkedIn user.
 
 ## Part 2: Develop a Streamlit app using the model
@@ -229,9 +213,7 @@ tab1, tab2, tab3 = st.tabs(["Predict", "Sample Data Visualizations", "Model Perf
 
 st.divider()
 
-"""### Prediction Tab
----
-"""
+### Prediction Tab
 
 with tab1:
 
@@ -307,7 +289,7 @@ with tab1:
     pred = model.predict(input_data)[0]
     prob = model.predict_proba(input_data)[0][1]   # probability of being a LinkedIn user
 
-    """# ---- Display results ----"""
+# ---- Display results ----
     with col2:
 
         st.header("Prediction")
