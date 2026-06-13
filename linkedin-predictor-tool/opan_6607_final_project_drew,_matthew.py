@@ -41,7 +41,7 @@ import streamlit as st
 # Call the dataframe "s" 
 """
 
-DATA_DIR = Path(__file__).parents
+DATA_DIR = Path(__file__).parent
 s = pd.read_csv(DATA_DIR /"social_media_usage.csv")    # Full pathway removed for deployment to Streamlit
 
 
@@ -329,7 +329,7 @@ with tab2:
     )
 
     """# Loop over each predictor in x and create a density plot"""
-    
+
     for col in x:
         # Create a figure for Streamlit
         fig, ax = plt.subplots()
