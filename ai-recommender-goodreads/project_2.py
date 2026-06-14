@@ -25,6 +25,10 @@ from surprise.model_selection import train_test_split
 
 from pydantic import BaseModel, Field
 
+from pathlib import Path
+DATA_DIR = Path(__file__).parent
+
+
 books = pd.read_csv("Books.csv")
 ratings = pd.read_csv("Ratings.csv")
 
@@ -597,8 +601,8 @@ with st.sidebar:
 # ---- Data & model loading (cached so Streamlit doesn't retrain on every widget change) ----
 @st.cache_data
 def load_datasets():
-    b = pd.read_csv("Books.csv")
-    r = pd.read_csv("Ratings.csv")
+    b = pd.read_csv(DATA_DIR / "Books.csv")
+    r = pd.read_csv(DATA_DIR / "Ratings.csv")
     return b, r
 
 @st.cache_resource
