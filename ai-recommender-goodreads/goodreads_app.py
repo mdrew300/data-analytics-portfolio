@@ -213,7 +213,8 @@ elif st.session_state.page == 'recommendations':
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### 🤖 Personalize with AI")
     preference = st.text_input("What are you in the mood for?", placeholder="e.g. a dark psychological thriller")
-    api_key = st.text_input("Gemini API Key", type="password")
+    #api_key = st.text_input("Gemini API Key", type="password")
+    api_key = st.secrets["GEMINI_API_KEY"]
 
     col1, col2 = st.columns(2)
     with col1:
